@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "545733249977",
+    "firebase_url": "https://audioplayer-3390a.firebaseio.com",
+    "project_id": "audioplayer-3390a",
+    "storage_bucket": "audioplayer-3390a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:545733249977:android:b2db4394a54eec93a7c468",
+        "android_client_info": {
+          "package_name": "com.example.audioplayer"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "545733249977-isvt4pbqst52dns3ioo4f2b35v0hc64j.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyALF1IUgHxF1-h_z4sYO7P446dNWxuRROY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "545733249977-isvt4pbqst52dns3ioo4f2b35v0hc64j.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
