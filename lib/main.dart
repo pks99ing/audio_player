@@ -2,7 +2,10 @@
 
 import 'dart:io';
 import 'package:audioplayer/Global_Variable.dart';
+import 'package:audioplayer/recording.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:loading/indicator/ball_pulse_indicator.dart';
+import 'package:loading/loading.dart';
 import 'package:path/path.dart' as p;
 import 'package:audioplayers/audioplayers.dart';
 import 'package:file_picker/file_picker.dart';
@@ -54,7 +57,8 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return MaterialApp(
       routes: {
-        'MySongList':(context)=>MySongList()
+        'MySongList':(context)=>MySongList(),
+        'recording' :(context)=>Recording()
       },
       home: MyHomePage(),
     );
@@ -68,15 +72,20 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  String name;
   File file;
   bool value=false;
+  bool repeat=false;
   StorageReference storageReference;
   AudioPlayer audioPlayer;
 
   void initState(){
     super.initState();
     audioPlayer=AudioPlayer();
+  }
+  refresh(){
+   setState(() {
+
+   });
   }
   @override
   Widget build(BuildContext context) {
@@ -111,12 +120,15 @@ class _MyHomePageState extends State<MyHomePage> {
                   });
                 },
               ),
-              value==true?CircularProgressIndicator(
-                backgroundColor: Colors.blueAccent,
-              ):SizedBox(),
+              value==true? Loading(indicator: BallPulseIndicator(), size: 100.0,color: Colors.pink)
+              :SizedBox(),
               RaisedButton(
                 child: Text('Up load'),
                 onPressed: () async{
+                  value=true;
+                  setState(() {
+
+                  });
                   Number++;
                   print(Number);
                   var list=await Firestore.instance.collection('MyAudioPlayer').document('numberOfSongs').get();
@@ -143,7 +155,12 @@ class _MyHomePageState extends State<MyHomePage> {
                     'songs':url,
                     'name':name
                   });
+                  value=false;
+                  setState(() {
+
+                  });
                 },
+
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -171,10 +188,21 @@ class _MyHomePageState extends State<MyHomePage> {
                   IconButton(
                     icon: Icon(Icons.list),
                     onPressed: ()async{
+                      value=true;
+                      refresh();
                       await addList(context);
-                      Navigator.pushNamed(context, 'MySongList');
+                      value=false;
+                       refresh();
+                      await Navigator.pushNamed(context, 'MySongList');
+                     refresh();
                     },
                   ),
+                  IconButton(
+                    icon: Icon(Icons.keyboard_voice),
+                    onPressed: () async{
+                      await Navigator.pushNamed(context, 'recording');
+                    },
+                  )
                 ],
               ),
             ],

@@ -4,6 +4,8 @@ import 'package:flutter/cupertino.dart';
 
 int Number=0;
 List listDynamic=[];
+String name;
+int localNumber=1;
 var url;
 
 
@@ -12,14 +14,14 @@ addList(BuildContext context) async{
       .document('numberOfSongs')
       .get();
   Number=number['noOfSongs'];
-  listDynamic.clear();
-  for(int i=1;i<=Number;i++){
+  for(int i=localNumber;i<=Number;i++){
     final value = await Firestore.instance.collection('MyAudioPlayer')
         .document('Song$i')
         .get();
     listDynamic.add(GestureDetector(
       onTap: (){
         print('Yo click me');
+        name=value['name'];
         url=value['songs'];
         Navigator.of(context).pop();
       },
@@ -28,6 +30,7 @@ addList(BuildContext context) async{
         )
     )
     );
+    localNumber++;
   }
 }
 class MyCard extends StatelessWidget {
